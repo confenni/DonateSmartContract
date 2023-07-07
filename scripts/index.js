@@ -90,7 +90,7 @@ app.post("/createSmartContract", (req, res) => {
           address_contract: stdout.split("\n")[2],
           abi_json_url: abi_url,
         };
-        return responseServer200(res, "Process Successfuly", response);
+        return responseServer200(res, "Process Successfully", response);
       })
     : responseServer500(
         res,
