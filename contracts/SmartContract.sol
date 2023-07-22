@@ -18,10 +18,10 @@ contract SmartContract {
     event Transfer(address indexed from, address indexed receiver, uint256 amount, string documentHash, string doi, string message, uint256 timestamp);
 
     // Function to add a transaction
-    function addTransaction(uint256[4] memory percentages, uint256[6] memory limits, address payable[] memory receivers, uint256[] memory percentages_authors, address payable[] memory receivers_authors, string memory documentHash, string memory doi, string memory message) public payable {
+    function addTransaction(uint256[3] memory percentages, uint256[4] memory limits, address payable[] memory receivers, uint256[] memory percentages_authors, address payable[] memory receivers_authors, string memory documentHash, string memory doi, string memory message) public payable {
         // Perform various checks and validations before proceeding with the transaction
-        require(limits.length == 6, "Invalid limits array length");
-        require(percentages.length == 4, "Invalid percentages array length");
+        require(limits.length == 4, "Invalid limits array length");
+        require(percentages.length == 3, "Invalid percentages array length");
         require(receivers.length > 0, "No receivers specified");
         require(percentages_authors.length > 0, "No percentage authors specified");
         require(receivers_authors.length > 0, "No receivers authors specified");
@@ -48,16 +48,6 @@ contract SmartContract {
 
         // Repeat the same process for the final set of limits => editors
         amount = msg.value * percentages[2] / 100;
-        diffLimits = limits[5] - limits[4];
-        splitAmount = amount / diffLimits;
-
-        for (uint256 i = limits[4]; i < limits[5]; i++) {
-            _addTransaction(msg.sender, receivers[i], splitAmount, documentHash, doi, message);
-            _transferEther(receivers[i], splitAmount);
-        }
-
-        // Repeat the same process for the final set of limits => editors
-        amount = msg.value * percentages[3] / 100;
         uint256 allTotalAuthors = 0;
 
         for (uint256 i = 0; i < receivers_authors.length; i++) {
