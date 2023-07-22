@@ -53,10 +53,6 @@ const responseServer200 = (res, msg, data = "") =>
 const responseServer500 = (res, msg, data = "") =>
   res.status(500).json(sendResponse(false, msg, data));
 
-app.use("/", (req, res) => {
-  return responseServer500(res, "Something Wrong!, Check Again!");
-});
-
 app.post("/createSmartContract", (req, res) => {
   const response_error = {};
   const { error } = validateCreateContract(req.body);
@@ -97,6 +93,10 @@ app.post("/createSmartContract", (req, res) => {
         "failed to process endpoint",
         JSON.parse(JSON.stringify(response_error).replace(/\\"/g, ""))
       );
+});
+
+app.use("/", (req, res) => {
+  return responseServer500(res, "Something Wrong!, Check Again!");
 });
 
 app.listen(3000, () => {
