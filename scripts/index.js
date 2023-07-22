@@ -53,8 +53,8 @@ const responseServer200 = (res, msg, data = "") =>
 const responseServer500 = (res, msg, data = "") =>
   res.status(500).json(sendResponse(false, msg, data));
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+app.use("/", (req, res) => {
+  return responseServer500(res, "Something Wrong!, Check Again!");
 });
 
 app.post("/createSmartContract", (req, res) => {
