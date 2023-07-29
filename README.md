@@ -1,10 +1,10 @@
 # Smart Contract Server for Plugin Donate Crypto 
 
-This server running in NodeJS with Hardhat configure for the smart contract system, in this server can running in local server or VPS. This server have a function for create smart contract with the deploy with Hardhat. Before the deploy new smart contract should be have a private account key (Etherium), network name, and url API key network.
+This server runs on NodeJS with Hardhat configuration for smart contract system, this server can run on local server or VPS. This server has the function to create smart contracts using Hardhat. Before deploying a new smart contract, you must have a personal account key (Etherium), network name, and network API key url.
 
 ## Installation
 
-Download or Clone this repository. After that you open terminal in project and type command like bellow and enter, for install all package used.
+Download or Clone this repository. After that you open the terminal in the project and type the command as below and enter, to install all the packages used.
 
 ```bash
 npm install
@@ -12,7 +12,7 @@ npm install
     
 ## Running the server
 
-The server can running if you type and enter
+The server can run if you type and enter
 
 ```bash
 node scripts/index.js
@@ -31,7 +31,7 @@ node scripts/index.js
 | `url_api_key`         | `string` | **Required**. URL API KEY of network            |
 | `private_key_account` | `string` | **Required**. Private Key Account from metamask |
 
-If running this API endpoint, will be get result JSON like this
+If you run this API endpoint, you will get a JSON result like this
 ```json
 {
     "status": true,
