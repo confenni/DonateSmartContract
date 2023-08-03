@@ -56,14 +56,20 @@ const responseServer500 = (res, msg, data = "") =>
 app.post("/createSmartContract", (req, res) => {
   const response_error = {};
   const { error } = validateCreateContract(req.body);
-  error
-    ? error.details.forEach((err_msg) => {
-        response_error[err_msg.path[0]] = err_msg.message;
-      })
-    : fs.writeFileSync(
-        ".env",
-        `NETWORK=${req.body.network}\r\nURL=${req.body.url_api_key}\r\nACCOUNTS=${req.body.private_key_account}`
-      );
+  if (error) {
+    error.details.forEach((err_msg) => {
+      response_error[err_msg.path[0]] = err_msg.message;
+    });
+  } else {
+    fs.writeFileSync(
+      ".env",
+      `NETWORK=${req.body.network}\r\nURL=${req.body.url_api_key}\r\nACCOUNTS=${req.body.private_key_account}`
+    );
+    fs.writeFileSync(
+      "run_hardhat.sh",
+      `npx hardhat run scripts/deploy.js --network ${req.body.network}`
+    );
+  }
   Object.keys(response_error).length === 0
     ? exec("sh run_hardhat.sh", (error, stdout, stderr) => {
         if (error !== null)
