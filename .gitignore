@@ -5,6 +5,7 @@ coverage.json
 typechain
 typechain-types
 abi_json
+run_hardhat.sh
 
 # Hardhat files
 cache
